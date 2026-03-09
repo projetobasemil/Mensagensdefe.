@@ -6,43 +6,64 @@
 <title>Mensagens de Fé</title>
 
 <style>
+
 body{
-font-family: Arial, sans-serif;
-background: linear-gradient(135deg,#4facfe,#00f2fe);
+font-family: Arial;
 margin:0;
-padding:0;
 text-align:center;
+background:linear-gradient(120deg,#5f9cff,#6a11cb);
 color:white;
 }
 
 header{
-padding:40px;
+padding:30px;
 font-size:32px;
 font-weight:bold;
 }
 
-.container{
-max-width:700px;
-margin:auto;
-padding:20px;
+.card{
+background:white;
+color:#333;
+max-width:600px;
+margin:40px auto;
+padding:30px;
+border-radius:20px;
+font-size:22px;
+box-shadow:0 10px 25px rgba(0,0,0,0.2);
 }
 
-.mensagem{
-background:rgba(255,255,255,0.15);
-padding:20px;
-margin:20px 0;
-border-radius:15px;
-font-size:20px;
+.botoes{
+margin-top:20px;
 }
 
 button{
 padding:12px 20px;
+margin:5px;
 border:none;
 border-radius:10px;
-font-size:18px;
+font-size:16px;
 cursor:pointer;
-background:white;
-color:#333;
+}
+
+.nova{
+background:#2575fc;
+color:white;
+}
+
+.whatsapp{
+background:#25D366;
+color:white;
+}
+
+.curtir{
+background:#ff4d6d;
+color:white;
+}
+
+#likes{
+margin-top:10px;
+font-size:16px;
+color:#555;
 }
 
 footer{
@@ -50,6 +71,7 @@ margin-top:40px;
 padding:20px;
 font-size:14px;
 }
+
 </style>
 </head>
 
@@ -59,36 +81,94 @@ font-size:14px;
 🙏 Mensagens de Fé
 </header>
 
-<div class="container">
+<div class="card">
 
-<div class="mensagem" id="mensagem">
-Deus nunca atrasa, Ele capricha no tempo certo.
+<div id="mensagem"></div>
+
+<div id="likes">❤️ 0 curtidas</div>
+
+<div class="botoes">
+
+<button class="nova" onclick="novaMensagem()">Nova mensagem</button>
+
+<button class="whatsapp" onclick="compartilhar()">Compartilhar</button>
+
+<button class="curtir" onclick="curtir()">Curtir</button>
+
 </div>
-
-<button onclick="novaMensagem()">Nova Mensagem</button>
 
 </div>
 
 <footer>
-Que sua fé seja maior que seus medos ✨
+Espalhe fé e esperança todos os dias ✨
 </footer>
 
 <script>
 
-const mensagens = [
-"Deus nunca falha, confie no processo.",
-"A fé move montanhas.",
-"Entregue seus planos a Deus.",
-"Deus está preparando algo maior.",
-"Ore, confie e espere.",
-"A vitória vem para quem acredita.",
-"Deus cuida de cada detalhe da sua vida."
+let likes = 0;
+
+const bomdia = [
+"Bom dia! Que Deus abençoe seu dia.",
+"Bom dia! Deus preparou algo lindo para hoje.",
+"Bom dia! Comece o dia com fé."
 ];
 
-function novaMensagem(){
-let numero = Math.floor(Math.random() * mensagens.length);
-document.getElementById("mensagem").innerText = mensagens[numero];
+const boatarde = [
+"Boa tarde! Deus está cuidando de tudo.",
+"Boa tarde! Grandes coisas estão por vir.",
+"Boa tarde! Continue confiando em Deus."
+];
+
+const boanoite = [
+"Boa noite! Deus está guardando seu descanso.",
+"Boa noite! Entregue seus problemas a Deus.",
+"Boa noite! Amanhã será um novo dia de vitória."
+];
+
+function mensagemHorario(){
+
+let hora = new Date().getHours();
+let lista;
+
+if(hora < 12){
+lista = bomdia;
 }
+else if(hora < 18){
+lista = boatarde;
+}
+else{
+lista = boanoite;
+}
+
+let numero = Math.floor(Math.random() * lista.length);
+
+document.getElementById("mensagem").innerText = lista[numero];
+
+}
+
+function novaMensagem(){
+mensagemHorario();
+}
+
+function compartilhar(){
+
+let texto = document.getElementById("mensagem").innerText;
+
+let url = "https://wa.me/?text=" + encodeURIComponent(texto);
+
+window.open(url);
+
+}
+
+function curtir(){
+
+likes++;
+
+document.getElementById("likes").innerText = "❤️ " + likes + " curtidas";
+
+}
+
+mensagemHorario();
 
 </script>
 
